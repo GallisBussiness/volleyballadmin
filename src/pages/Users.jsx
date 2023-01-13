@@ -12,7 +12,7 @@ import { InputText } from 'primereact/inputtext'
 import { BsPencilSquare } from 'react-icons/bs'
 import CreateUserModal from '../modals/CreateUserModal'
 import UpdateUserModal from '../modals/UpdateUserModal'
-import { createUser, getUsers, removeUser, updateUser } from '../services/Userservice'
+import { createUser, getUsers, removeUser, updateUser } from '../services/userservice'
 import { ActionIcon, Button } from '@mantine/core';
 
 
