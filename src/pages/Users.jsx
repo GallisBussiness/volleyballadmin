@@ -161,7 +161,7 @@ function Users() {
         <div className="flex flex-wrap -mx-3">
           <div className="max-w-full px-3 lg:w-1/2 lg:flex-none">
             <div className="flex items-center justify-start h-full">
-              <h5 className="font-bold text-3xl">Liste des Admins</h5>
+              <h5 className="font-bold text-3xl">Liste des Administrateurs</h5>
             </div>
           </div>
           <div className="max-w-full h-40 px-3 mt-12 ml-auto text-center lg:mt-0 lg:w-5/12 hidden lg:block">
@@ -184,12 +184,12 @@ function Users() {
                     dataKey="_id" rowHover selection={selectedUsers} onSelectionChange={e => setSelectedUsers(e.value)}
                     filters={filters} filterDisplay="menu" loading={isLoading} responsiveLayout="scroll"
                     globalFilterFields={['nom', 'prenom']}
-                    currentPageReportTemplate="Voir {first} de {last} à {totalRecords} Users">
+                    currentPageReportTemplate="Voir {first} de {last} à {totalRecords} Utilisateurs">
                     <Column selectionMode="multiple" headerStyle={{ width: '3em' }}></Column>
-                    <Column field="prenom" header="Prenom" sortable style={{ minWidth: '14rem' }} />
-                    <Column field="nom" header="Nom" sortable style={{ minWidth: '14rem' }} />
-                    <Column field="tel" header="Téléphone" sortable style={{ minWidth: '14rem' }} />
-                    <Column field="email" header="Email" sortable style={{ minWidth: '14rem' }} />
+                    <Column field="prenom" header="Prenom" sortable style={{ minWidth: '6rem' }} />
+                    <Column field="nom" header="Nom" sortable style={{ minWidth: '6rem' }} />
+                    <Column field="tel" header="Téléphone" sortable style={{ minWidth: '6rem' }} />
+                    <Column field="email" header="Email" sortable style={{ minWidth: '6rem' }} />
                     <Column headerStyle={{ width: '4rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
                 </DataTable>
             </div>

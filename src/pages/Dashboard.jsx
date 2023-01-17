@@ -75,7 +75,7 @@ const useStyles = createStyles((theme) => ({
 
 export function Dashboard() {
   const { classes, cx } = useStyles();
-  const [activeLink, setActiveLink] = useState('');
+  const [activeLink, setActiveLink] = useState('admins');
   
   return (
     <>
@@ -85,24 +85,6 @@ export function Dashboard() {
       <Navbar.Section grow className={classes.wrapper}>
         <div className={classes.main}>
         <Link
-      className={cx(classes.link, { [classes.linkActive]: activeLink === 'tournois' })}
-      to="tournois"
-      onClick={() => {
-        setActiveLink('tournois');
-      }}
-    >
-      Liste des Tournois
-    </Link>
-    <Link
-      className={cx(classes.link, { [classes.linkActive]: activeLink === 'tournoi-type' })}
-      to="tournois-type"
-      onClick={() => {
-        setActiveLink('tournoi-type');
-      }}
-    >
-      Liste des Types de Tournois
-    </Link>
-    <Link
       className={cx(classes.link, { [classes.linkActive]: activeLink === 'admins' })}
       to="admins"
       onClick={() => {
@@ -110,6 +92,15 @@ export function Dashboard() {
       }}
     >
       Liste des Administrateurs
+    </Link>
+        <Link
+      className={cx(classes.link, { [classes.linkActive]: activeLink === 'tournois' })}
+      to="tournois"
+      onClick={() => {
+        setActiveLink('tournois');
+      }}
+    >
+      Liste des Tournois
     </Link>
     <Link
       className={cx(classes.link, { [classes.linkActive]: activeLink === 'joueurs' })}
@@ -144,9 +135,9 @@ export function Dashboard() {
     </Navbar>
     <div className="w-full md:w-10/12">
     <Routes>
-     <Route path="" element={<Tournois />} />
+     <Route path="" element={<Users />} />
      <Route path="/tournois" element={<Tournois />}/>
-     <Route path="/tournois-type" element={<TournoisTypes />}/>
+     {/* <Route path="/tournois-type" element={<TournoisTypes />}/> */}
      <Route path="/admins" element={<Users />}/>
      <Route path="/joueurs" element={<Joueurs />}/>
      <Route path="/equipes" element={<Equipes />}/>

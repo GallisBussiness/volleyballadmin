@@ -10,7 +10,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { InputText } from 'primereact/inputtext'
 import { BsPencilSquare } from 'react-icons/bs'
 import {  getEquipes, removeEquipe, setActiveEquipe} from '../services/equipe-service'
-import { ActionIcon, Button, Switch } from '@mantine/core';
+import { ActionIcon, Button, LoadingOverlay, Switch } from '@mantine/core';
 
 
 function Equipes() {
@@ -56,7 +56,7 @@ function Equipes() {
         }
     })
 
-    const {mutate: activer} = useMutation((data) => setActiveEquipe(data.id,data.data), {
+    const {mutate: activer,isLoading: activeLoading} = useMutation((data) => setActiveEquipe(data.id,data.data), {
       onSuccess: (_) => {
           showNotification({
               title: 'Activation Equipe',
@@ -132,6 +132,7 @@ function Equipes() {
 
   return (
     <>
+    <LoadingOverlay visible={activeLoading} overlayBlur={2} />
      <div className="flex flex-wrap bg-whity">
   <div className="w-full px-3 mb-6 lg:mb-0 lg:flex-none">
     <div className="relative flex flex-col h-40 min-w-0 break-words bg-white shadow-soft-xl  bg-clip-border">
@@ -164,11 +165,11 @@ function Equipes() {
                     globalFilterFields={['nom']}
                     currentPageReportTemplate="Voir {first} de {last} à {totalRecords} Equipes">
                     <Column selectionMode="multiple" headerStyle={{ width: '3em' }}></Column>
-                    <Column field="nom" header="Nom" sortable style={{ minWidth: '10rem' }} />
+                    <Column field="nom" header="Nom" sortable style={{ minWidth: '6rem' }} />
                     <Column field="idTournoi.nom" header="Tournoi" sortable style={{ minWidth: '6rem' }} />
-                    <Column header="Joueur 1" body={joueur1Template} sortable style={{ minWidth: '10rem' }} />
-                    <Column header="Joueur 2"  body={joueur2Template} sortable style={{ minWidth: '10rem' }} />
-                    <Column header="Validation" body={activationTemplate} style={{ minWidth: '14rem' }} />
+                    <Column header="Joueur 1" body={joueur1Template} sortable style={{ minWidth: '6rem' }} />
+                    <Column header="Joueur 2"  body={joueur2Template} sortable style={{ minWidth: '6rem' }} />
+                    <Column header="Validation" body={activationTemplate} style={{ minWidth: '6rem' }} />
                     <Column headerStyle={{ width: '4rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
                 </DataTable>
             </div>

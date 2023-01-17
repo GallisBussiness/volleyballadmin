@@ -13,12 +13,13 @@ import { BsPencilSquare } from 'react-icons/bs'
 import CreateTournoiModal from '../modals/CreateTournoiModal'
 import UpdateTournoiModal from '../modals/UpdateTournoiModal'
 import { createTournoi, getTournois, removeTournoi, updateTournoi,toggleClose } from '../services/tournoiservice'
-import { ActionIcon, Button, Switch } from '@mantine/core';
+import { ActionIcon, Button, LoadingOverlay, Switch } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 
 
 function Tournois() {
     const [selectedTournois, setSelectedTournois] = useState([]);
+    const [checked, setChecked] = useState(false);
     const qc = useQueryClient()
     const [filters, setFilters] = useState({
         'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -97,7 +98,7 @@ function Tournois() {
            }
     })
 
-    const {mutate: toggle} = useMutation((data) => toggleClose(data.id,data.data), {
+    const {mutate: toggle, isLoading: toggleLoading} = useMutation((data) => toggleClose(data.id,data.data), {
       onSuccess: (_) => {
           showNotification({
               title: 'Activation Tournoi',
@@ -183,6 +184,7 @@ function Tournois() {
 
   return (
     <>
+    <LoadingOverlay visible={toggleLoading} overlayBlur={2} />
      <div className="flex flex-wrap bg-whity">
   <div className="w-full px-3 mb-6 lg:mb-0 lg:flex-none">
     <div className="relative flex flex-col h-40 min-w-0 break-words bg-white shadow-soft-xl  bg-clip-border">
@@ -216,11 +218,11 @@ function Tournois() {
                     globalFilterFields={['nom', 'type.nom']}
                     currentPageReportTemplate="Voir {first} de {last} à {totalRecords} tournois">
                     <Column selectionMode="multiple" headerStyle={{ width: '3em' }}></Column>
-                    <Column field="nom" header="Nom" sortable style={{ minWidth: '14rem' }} />
-                    <Column field="date" header="Date" sortable body={dateTemplate} style={{ minWidth: '14rem' }} />
-                    <Column field="type.nom" header="Type de Tournoi" sortable style={{ minWidth: '14rem' }} />
-                    <Column field="genre" header="genre" body={genreTemplate} sortable style={{ minWidth: '14rem' }} />
-                    <Column header="Ferme" body={activationTemplate} style={{ minWidth: '14rem' }} />
+                    <Column header="Ferme" body={activationTemplate} style={{ minWidth: '6rem' }} />
+                    <Column field="nom" header="Nom" sortable style={{ minWidth: '6rem' }} />
+                    <Column field="date" header="Date" sortable body={dateTemplate} style={{ minWidth: '6rem' }} />
+                    <Column field="type.nom" header="Type de Tournoi" sortable style={{ minWidth: '6rem' }} />
+                    <Column field="genre" header="genre" body={genreTemplate} sortable style={{ minWidth: '6rem' }} />
                     <Column headerStyle={{ width: '4rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
                 </DataTable>
             </div>

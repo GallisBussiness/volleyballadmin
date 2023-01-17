@@ -7,9 +7,9 @@ import 'dayjs/locale/fr';
 import { create } from 'react-modal-promise'
 import { Button, Select, TextInput } from '@mantine/core';
 import { parseISO } from 'date-fns';
-import { useQuery } from 'react-query';
-import { getTournoiTypes } from '../services/tournoi-type-service';
-import { useState } from 'react';
+// import { useQuery } from 'react-query';
+// import { getTournoiTypes } from '../services/tournoi-type-service';
+// import { useState } from 'react';
 
 const schema = yup.object({
     nom: yup.string()
@@ -27,19 +27,19 @@ const schema = yup.object({
 
 const UpdateTournoiModal = ({ isOpen, onResolve, onReject,tournoi }) => {
 
-  const [types,setTypes] = useState([]);
+  // const [types,setTypes] = useState([]);
 
-  const qk = ['get_TournoiTypes']
+  // const qk = ['get_TournoiTypes']
 
-  useQuery(qk, () => getTournoiTypes(), {
-    onSuccess: (_) => {
-      const t = _.map(ty => ({label: ty.nom, value: ty._id}));
-      setTypes(t)
-    }
-  });
+  // useQuery(qk, () => getTournoiTypes(), {
+  //   onSuccess: (_) => {
+  //     const t = _.map(ty => ({label: ty.nom, value: ty._id}));
+  //     setTypes(t)
+  //   }
+  // });
 
 
-    const defaultValues = {_id: tournoi?._id,nom: tournoi?.nom, date: tournoi?.date,dateDeFermiture:tournoi?.dateDeFermiture ,genre: tournoi?.genre,type: tournoi?.type?._id};
+    const defaultValues = {_id: tournoi?._id,nom: tournoi?.nom, date: tournoi?.date,dateDeFermiture:tournoi?.dateDeFermiture ,genre: tournoi?.genre,type: tournoi?.type};
       const {control, handleSubmit,getValues, formState: {errors} } = useForm({
           resolver: yupResolver(schema),
         defaultValues
@@ -57,7 +57,7 @@ const UpdateTournoiModal = ({ isOpen, onResolve, onReject,tournoi }) => {
     <div className="mb-3">
             <Controller control={control} name="nom" render={({field}) => (
                 <TextInput value={field.value} onChange={field.onChange}
-                 label="Nom du Toournoi" error={errors.nom && errors.nom.message}
+                 label="Nom du Tournoi" error={errors.nom && errors.nom.message}
                  placeholder="nom du tournoi"
                    withAsterisk/>
              )}/>
@@ -85,7 +85,7 @@ const UpdateTournoiModal = ({ isOpen, onResolve, onReject,tournoi }) => {
              
             <div className="mb-3">
             <Controller control={control} name="type" render={({field}) => (
-             <Select value={field.value} onChange={field.onChange} placeholder="selectionnez le type de tournoi" label="Type de tournoi" data={types} withAsterisk/>
+             <Select value={field.value} onChange={field.onChange} placeholder="selectionnez le type de tournoi" label="Type de tournoi" data={['SERIE A','SERIE B','SERIE C']} withAsterisk/>
              )}/>
             </div>
             <Button type="submit" className="bg-yellow-500 hover:bg-yellow-700"> MODIFIER LE TOURNOI</Button>
