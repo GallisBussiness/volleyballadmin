@@ -8,6 +8,7 @@ import { create } from 'react-modal-promise'
 import { Button, NumberInput, Select, TextInput } from '@mantine/core';
 import { parseISO } from 'date-fns';
 import AddMembreTournois from './AddMembreTournois';
+import DateTimeInput from '../components/DateTimeInput';
 // import { useQuery } from 'react-query';
 // import { getTournoiTypes } from '../services/tournoi-type-service';
 // import { useState } from 'react';
@@ -27,19 +28,17 @@ const schema = yup.object({
     dont_w_c_p: yup.number().required(),
     membre_locaux: yup.array(),
     dont_places_r_q: yup.number().required(),
-    ng_eq_en_q: yup.number().required(),
+    nb_eq_en_q: yup.number().required(),
     dont_w_e_q: yup.number().required(),
     nb_t_norme: yup.number().required(),
     date_qualification: yup.string().required(),
-    date_tableau_principal: yup.string().required(),
+    date_tableau_principal: yup.array().required(),
     formule_sportive_qualification: yup.string().required(),
     formule_sportive_tableau_principal: yup.string().required(),
     modele_ballon: yup.string().required(),
     prize_money_par_tableau: yup.string().required(),
     repartition_prize_money: yup.string().required(),
     tarif_inscription_par_equipe: yup.string().required(),
-    horaire_reunion_tableau_qualification: yup.string().required(),
-    horaire_reunion_tableau_principal: yup.string().required()
   }).required();
 
 
@@ -49,7 +48,7 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
     nb_equipe_tableau_principal: 0,
     dont_w_c_p: 0,
     dont_places_r_q: 0,
-    ng_eq_en_q: 0,
+    nb_eq_en_q: 0,
     dont_w_e_q: 0,
     nb_t_norme: 0,
     date_qualification: new Date().toISOString(),
@@ -61,8 +60,6 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
     prize_money_par_tableau: '',
     repartition_prize_money: '',
     tarif_inscription_par_equipe: '',
-    horaire_reunion_tableau_qualification: '',
-    horaire_reunion_tableau_principal: ''
   };
       const {control, handleSubmit,getValues,setValue, formState: {errors} } = useForm({
           resolver: yupResolver(schema),
@@ -71,7 +68,9 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
 
     
     const onCreate = (data) => {
-        onResolve(data);
+      const {date_tableau_principal} = data;
+      const newdtp = date_tableau_principal.map(d => d.toISOString())
+        onResolve({...data, date_tableau_principal: newdtp});
       };
 
       const addMembre = () => {
@@ -128,22 +127,14 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
                    withAsterisk/>
              )}/>
             </div>
-            <div className="mb-3">
+           
+        </div>
+        <div className="flex flex-col items-center justify-center w-full">
+        <div className="mb-3">
             <Controller control={control} name="dont_w_c_p" render={({field}) => (
                 <NumberInput value={field.value} onChange={field.onChange}
                  label="Dont Wild Card principales" 
                  error={errors.dont_w_c_p && errors.dont_w_c_p.message}
-                   withAsterisk/>
-             )}/>
-            </div>
-        </div>
-        <div className="flex flex-col items-center justify-center w-full">
-      
-            <div className="mb-3">
-            <Controller control={control} name="dont_places_r_q" render={({field}) => (
-                <NumberInput value={field.value} onChange={field.onChange}
-                 label="Dont places réservées qualif" 
-                 error={errors.dont_places_r_q && errors.dont_places_r_q.message}
                    withAsterisk/>
              )}/>
             </div>
@@ -164,10 +155,10 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
              )}/>
             </div>
         <div className="mb-3">
-            <Controller control={control} name="ng_eq_en_q" render={({field}) => (
+            <Controller control={control} name="nb_eq_en_q" render={({field}) => (
                 <NumberInput value={field.value} onChange={field.onChange}
                  label="Nb équipe en qualification" 
-                 error={errors.ng_eq_en_q && errors.ng_eq_en_q.message}
+                 error={errors.nb_eq_en_q && errors.nb_eq_en_q.message}
                    withAsterisk/>
              )}/>
             </div>
@@ -187,16 +178,16 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
              )}/>
             </div>
            
-           
-      
-        </div>
-        <div className="flex flex-col items-center justify-center w-full">
-        <div className="mb-3">
+            <div className="mb-3">
             <Controller control={control} name="date_tableau_principal" render={({field}) => (
              <DateRangePicker placeholder="Choisir dates tableau principal" label="Dates tableau principal" withAsterisk locale="fr" value={field.value} onChange={field.onChange}
               error={errors.date_tableau_principal && errors.date_tableau_principal.message} />
              )}/>
             </div>
+      
+        </div>
+        <div className="flex flex-col items-center justify-center w-full">
+        
         <div className="mb-3">
             <Controller control={control} name="formule_sportive_qualification" render={({field}) => (
                 <TextInput value={field.value} onChange={field.onChange}

@@ -15,6 +15,8 @@ import UpdateTournoiModal from '../modals/UpdateTournoiModal'
 import { createTournoi, getTournois, removeTournoi, updateTournoi,toggleClose } from '../services/tournoiservice'
 import { ActionIcon, Button, LoadingOverlay, Switch } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
+import { Link } from 'react-router-dom';
+import { FaEye } from 'react-icons/fa';
 
 
 function Tournois() {
@@ -167,6 +169,11 @@ function Tournois() {
            <ActionIcon color="yellow" size="lg" onClick={() => handleUpdateTournoi(rowData)}>
                 <BsPencilSquare size={26} />
                 </ActionIcon>
+                <Link to={`/tournois/${rowData._id}`}>
+              <ActionIcon size="md">
+                <FaEye  className="h-12 w-12 text-blue-500"/>
+              </ActionIcon>
+            </Link>
         </div>;
         
     }
@@ -215,13 +222,13 @@ function Tournois() {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}
                     dataKey="_id" rowHover selection={selectedTournois} onSelectionChange={e => setSelectedTournois(e.value)}
                     filters={filters} filterDisplay="menu" loading={isLoading} responsiveLayout="scroll"
-                    globalFilterFields={['nom', 'type.nom']}
+                    globalFilterFields={['nom', 'type']}
                     currentPageReportTemplate="Voir {first} de {last} à {totalRecords} tournois">
                     <Column selectionMode="multiple" headerStyle={{ width: '3em' }}></Column>
                     <Column header="Ferme" body={activationTemplate} style={{ minWidth: '6rem' }} />
                     <Column field="nom" header="Nom" sortable style={{ minWidth: '6rem' }} />
                     <Column field="date" header="Date" sortable body={dateTemplate} style={{ minWidth: '6rem' }} />
-                    <Column field="type.nom" header="Type de Tournoi" sortable style={{ minWidth: '6rem' }} />
+                    <Column field="type" header="Type de Tournoi" sortable style={{ minWidth: '6rem' }} />
                     <Column field="genre" header="genre" body={genreTemplate} sortable style={{ minWidth: '6rem' }} />
                     <Column headerStyle={{ width: '4rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
                 </DataTable>

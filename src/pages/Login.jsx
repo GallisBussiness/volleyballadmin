@@ -15,6 +15,7 @@ import {
   Stack,
   LoadingOverlay,
   BackgroundImage,
+  Avatar,
 } from '@mantine/core';
 import { login } from '../services/authservice';
 import { showNotification } from '@mantine/notifications';
@@ -88,8 +89,11 @@ const Login = () => {
 <div className="flex items-center justify-center h-screen w-full md:w-5/12 mx-auto">
 <LoadingOverlay visible={isLoading} overlayBlur={2} />
     <Paper radius="md" p="xl" withBorder className="w-full p-10">
+    <div className="flex items-center justify-center my-2">
+         <Avatar src="/img/logo.jpeg" size={200}/>
+      </div>
       <Text size="lg" weight={500}>
-        VolleyBall administration
+      SENEGAL BEACH TOUR administration
       </Text>
       <form onSubmit={handleSubmit(onConnect)} method="POST">
         <Stack>

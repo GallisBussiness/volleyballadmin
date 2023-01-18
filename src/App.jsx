@@ -9,6 +9,7 @@ import {Dashboard} from './pages/Dashboard';
 import { locale, addLocale } from 'primereact/api';
 import P404 from './pages/P404';
 import { NotificationsProvider } from '@mantine/notifications';
+import Tournoi from './pages/Tournoi';
 
 addLocale('fr', {
   firstDayOfWeek: 1,
@@ -58,6 +59,7 @@ function App() {
               <BrowserRouter>
             <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/tournois/:id" element={<Tournoi />}/>
             <Route element={<PrivateRoute><Dashboard/></PrivateRoute>} path={'dashboard/*'}/>
             <Route path="login" element={<Login/>} />
             <Route path="*" element={<P404/>} />

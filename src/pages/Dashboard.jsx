@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createStyles, Navbar } from '@mantine/core';
+import { Avatar, createStyles, Navbar } from '@mantine/core';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Navtop } from '../components/Navtop';
 import Tournois from './Tournois';
@@ -81,7 +81,10 @@ export function Dashboard() {
     <>
     <Navtop />
     <div className="flex flex-col md:flex-row">
-       <Navbar className="w-full md:w-2/12 h-auto md:h-screen">
+       <Navbar className="w-full md:w-2/12 h-auto md:h-96">
+      <Navbar.Section>
+        <Avatar src="/img/logo.jpeg" size={200}/>
+      </Navbar.Section>
       <Navbar.Section grow className={classes.wrapper}>
         <div className={classes.main}>
         <Link
@@ -131,7 +134,6 @@ export function Dashboard() {
     </Link>
         </div>
       </Navbar.Section>
-     
     </Navbar>
     <div className="w-full md:w-10/12">
     <Routes>
