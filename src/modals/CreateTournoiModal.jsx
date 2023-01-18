@@ -84,7 +84,7 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
     <>
        <Dialog header="Creer un tournoi" visible={isOpen} onHide={() => onReject()} className="w-1/2">
     <form  className="mb-3" onSubmit={handleSubmit(onCreate)} method="POST">
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col sm:flex-row">
         <div className="flex flex-col items-center justify-center w-full">
            <div className="mb-3">
             <Controller control={control} name="nom" render={({field}) => (
@@ -136,6 +136,9 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
                    withAsterisk/>
              )}/>
             </div>
+        </div>
+        <div className="flex flex-col items-center justify-center w-full">
+      
             <div className="mb-3">
             <Controller control={control} name="dont_places_r_q" render={({field}) => (
                 <NumberInput value={field.value} onChange={field.onChange}
@@ -160,8 +163,6 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
                    withAsterisk/>
              )}/>
             </div>
-        </div>
-        <div className="flex flex-col items-center justify-center w-full">
         <div className="mb-3">
             <Controller control={control} name="ng_eq_en_q" render={({field}) => (
                 <NumberInput value={field.value} onChange={field.onChange}
@@ -185,13 +186,18 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
               error={errors.date_qualification && errors.date_qualification.message} />
              )}/>
             </div>
-            <div className="mb-3">
+           
+           
+      
+        </div>
+        <div className="flex flex-col items-center justify-center w-full">
+        <div className="mb-3">
             <Controller control={control} name="date_tableau_principal" render={({field}) => (
              <DateRangePicker placeholder="Choisir dates tableau principal" label="Dates tableau principal" withAsterisk locale="fr" value={field.value} onChange={field.onChange}
               error={errors.date_tableau_principal && errors.date_tableau_principal.message} />
              )}/>
             </div>
-            <div className="mb-3">
+        <div className="mb-3">
             <Controller control={control} name="formule_sportive_qualification" render={({field}) => (
                 <TextInput value={field.value} onChange={field.onChange}
                  label="Formule sportive qualification " error={errors.formule_sportive_qualification && errors.formule_sportive_qualification.message}
@@ -239,7 +245,6 @@ const CreateTournoiModal = ({ isOpen, onResolve, onReject }) => {
                    withAsterisk/>
              )}/>
             </div>
-      
         </div>
       </div>
         <div className="my-5 flex items-center justify-center">
